@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paper Harvest WebUI</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Paper Harvest WebUI</p>
+        <h1>按关键词与时间范围抓取论文，支持流式输出</h1>
+        <p class="hero-copy">
+          当前已针对 arXiv 做大批量分页优化，适合像 symbolic regression 这样需要在 2026-03-18
+          前抓满 300 篇相关论文的检索场景。其他站点仍可选，但默认优先 arXiv。
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="panel form-panel">
+          <form id="search-form">
+            <label class="field">
+              <span>关键词</span>
+              <textarea
+                id="keywords"
+                name="keywords"
+                rows="4"
+                placeholder="例如：symbolic regression"
+              >symbolic regression</textarea>
+              <small>支持逗号、分号或换行分隔多个关键词。</small>
+            </label>
+
+            <div class="field-row">
+              <label class="field">
+                <span>开始日期</span>
+                <input id="startDate" name="startDate" type="date" value="1991-01-01" />
+              </label>
+
+              <label class="field">
+                <span>结束日期</span>
+                <input id="endDate" name="endDate" type="date" value="2026-03-18" />
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span>结果上限</span>
+                <input id="limit" name="limit" type="number" min="1" max="500" value="300" />
+              </label>
+            </div>
+
+            <fieldset class="source-group">
+              <legend>来源</legend>
+              <label><input type="checkbox" name="sources" value="arxiv" checked /> arXiv</label>
+              <label><input type="checkbox" name="sources" value="neurips" /> NeurIPS</label>
+              <label><input type="checkbox" name="sources" value="aaai" /> AAAI</label>
+              <label><input type="checkbox" name="sources" value="acl" /> ACL</label>
+              <label><input type="checkbox" name="sources" value="icml" /> ICML</label>
+            </fieldset>
+
+            <div class="actions">
+              <button id="submit-button" type="submit">开始抓取</button>
+              <button id="export-button" type="button" disabled>导出 CSV</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel result-panel">
+          <div class="result-toolbar">
+            <div>
+              <h2>结果表格</h2>
+              <p id="summary">还没有结果，先运行一次搜索。</p>
+            </div>
+            <div id="status-pill" class="status-pill idle">空闲</div>
+          </div>
+
+          <div id="warning-box" class="warning-box hidden"></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>来源</th>
+                  <th>年份</th>
+                  <th>标题</th>
+                  <th>摘要</th>
+                  <th>匹配关键词</th>
+                  <th>链接</th>
+                </tr>
+              </thead>
+              <tbody id="results-body">
+                <tr class="empty-row">
+                  <td colspan="6">搜索结果会显示在这里。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

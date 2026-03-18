@@ -1,0 +1,11 @@
+{
+  "name": "paper-harvest-webui",
+  "version": "1.1.0",
+  "description": "Stream paper search results from arXiv and conference proceedings.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check src/search.js && node --check public/app.js"
+  },
+  "license": "MIT"
+}
