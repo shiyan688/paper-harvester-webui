@@ -1,8 +1,8 @@
 # Paper Harvest WebUI
 
-一个零依赖的本地 Node.js Web 界面，用来按关键词和时间范围抓取论文，并把结果流式显示在表格里。
+A zero-dependency local Node.js web app for searching papers by keyword and date range, with streaming results in the browser.
 
-当前支持：
+## Supported Paper Sources
 
 - arXiv
 - NeurIPS
@@ -10,33 +10,44 @@
 - ACL
 - ICML
 
-## 启动
+## Supported Platforms
+
+- Windows
+- macOS
+- Linux
+- Any modern browser that supports `fetch` streaming
+- Node.js 18+ recommended
+
+## Quick Start
 
 ```bash
-cd e:\codex\project2\paper-harvest-webui
-npm start
+git clone https://github.com/shiyan688/paper-harvester-webui.git
+cd paper-harvest-webui
+node server.js
 ```
 
-打开 `http://localhost:3005`。
+Then open `http://localhost:3005`.
 
-## 这次优化的重点
+## Highlights
 
-- `arXiv` 单次检索上限放宽到 500，默认可直接拉取 300 篇
-- `arXiv` 分页改为每页 100 条，并按需要自动继续翻页
-- 新增 `/api/search/stream`，前端会边收到结果边渲染
-- 默认场景切到 `symbolic regression + arXiv + 300 + 2026-03-18`
+- Optimized arXiv paging for large-result searches
+- Supports up to 500 results per search
+- Default example is `symbolic regression + arXiv + 300 + 2026-03-18`
+- Streaming endpoint at `/api/search/stream`
+- Export results as CSV
 
-## 功能
+## Features
 
-- 输入多个关键词
-- 指定开始日期和结束日期
-- 选择来源
-- 表格展示标题、摘要、链接、匹配关键词
-- 一键导出 CSV
-- 检索时流式输出中间结果
+- Multiple keywords
+- Date range filtering
+- Selectable sources
+- Table view for title, abstract, matched keywords, and link
+- CSV export
+- Streaming incremental updates during search
 
-## 说明
+## Notes
 
-- `arXiv` 使用公开 API，并按真实日期过滤
-- `NeurIPS`、`AAAI`、`ACL` 和 `ICML` 主要基于 proceedings 页面抓取，通常以年份为主
-- 项目没有第三方依赖，页面结构如果未来变化，抓取规则可能需要再调整
+- arXiv uses the public API and is filtered by actual paper dates
+- NeurIPS, AAAI, ACL, and ICML are collected from proceedings pages, so filtering is mainly year-based there
+- The project has no third-party runtime dependencies
+- If source site structures change in the future, selectors may need to be updated
